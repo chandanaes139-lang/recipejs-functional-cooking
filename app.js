@@ -272,7 +272,102 @@ const setupEventListeners = () => {
 renderRecipes(recipes);
 setupEventListeners();
 updateDisplay();
+const RecipeApp = (() => {
 
+  console.log("RecipeApp initializing...");
+
+  // =========================
+  // STATE
+  // =========================
+  let currentFilter = "all";
+  let currentSort = "none";
+
+  // =========================
+  // RECIPE DATA (ADD steps + ingredients)
+  // =========================
+  const recipes = [
+    {
+      id: 1,
+      title: "Pasta",
+      difficulty: "easy",
+      time: 25,
+      ingredients: ["Pasta", "Salt", "Water", "Sauce"],
+      steps: [
+        "Boil water",
+        "Add pasta",
+        {
+          text: "Prepare sauce",
+          substeps: [
+            "Heat pan",
+            "Add oil",
+            {
+              text: "Make spice mix",
+              substeps: ["Add chili", "Add oregano"]
+            }
+          ]
+        },
+        "Mix pasta and sauce"
+      ]
+    },
+
+    {
+      id: 2,
+      title: "Fried Rice",
+      difficulty: "medium",
+      time: 35,
+      ingredients: ["Rice", "Vegetables", "Soy sauce"],
+      steps: [
+        "Cook rice",
+        "Chop vegetables",
+        "Fry everything together"
+      ]
+    }
+  ];
+    const renderSteps = (steps, level = 0) => {
+    let html = "<ol>";
+
+    steps.forEach(step => {
+      if (typeof step === "string") {
+        html += `<li class="level-${level}">${step}</li>`;
+      } else {
+        html += `<li class="level-${level}">${step.text}`;
+        if (step.substeps) {
+          html += renderSteps(step.substeps, level + 1);
+        }
+        html += "</li>";
+      }
+    });
+
+    html += "</ol>";
+    return html;
+  };
+    const createRecipeCard = (recipe) => {
+    return `
+      <div class="recipe-card">
+        <h3>${recipe.title}</h3>
+        <p>Difficulty: ${recipe.difficulty}</p>
+        <p>Time: ${recipe.time} mins</p>
+
+        <button class="toggle-btn" data-id="${recipe.id}" data-type="steps">
+          Show Steps
+        </button>
+
+        <button class="toggle-btn" data-id="${recipe.id}" data-type="ingredients">
+          Show Ingredients
+        </button>
+
+        <div class="steps-container" id="steps-${recipe.id}">
+          ${renderSteps(recipe.steps)}
+        </div>
+
+        <div class="ingredients-container" id="ingredients-${recipe.id}">
+          <ul>
+            ${recipe.ingredients.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+    `;
+  };
 
 // Initialize app
 renderRecipes(recipes);/ /   P a r t   1   m a r k e r   c o m m e n t   f o r   P R 

@@ -170,3 +170,20 @@ main {
     background-color: #ff6b6b;
     color: white;
 }
+.steps-container,
+.ingredients-container {
+  display: none;
+  margin-top: 10px;
+}
+
+.visible {
+  display: block;
+}
+
+.level-1 {
+  margin-left: 20px;
+}
+
+.level-2 {
+  margin-left: 40px;
+}
