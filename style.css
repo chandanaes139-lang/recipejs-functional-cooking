@@ -147,3 +147,43 @@ main {
     box-shadow: 0 0 5px #667eea;
     border-color: #667eea;
 }
+.controls {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.controls button {
+    padding: 8px 14px;
+    margin: 5px;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.controls button:hover {
+    background-color: #ddd;
+}
+
+.controls button.active {
+    background-color: #ff6b6b;
+    color: white;
+}
+.steps-container,
+.ingredients-container {
+  display: none;
+  margin-top: 10px;
+}
+
+.visible {
+  display: block;
+}
+
+.level-1 {
+  margin-left: 20px;
+}
+
+.level-2 {
+  margin-left: 40px;
+}
